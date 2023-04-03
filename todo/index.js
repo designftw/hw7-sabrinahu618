@@ -35,6 +35,15 @@ dom.tasksList.addEventListener("keydown", e => {
 		focusTask(previousSibling ?? dom.tasksList.firstElementChild);
 		e.preventDefault(); // prevent data corruption
 	}
+	else if (e.key === "ArrowUp" && !e.repeat) {
+		focusTask(li.previousElementSibling ?? dom.tasksList.lastElementChild);
+		e.preventDefault(); 
+	}
+	else if (e.key === "ArrowDown" && !e.repeat) {
+		focusTask(li.nextElementSibling ?? dom.tasksList.firstElementChild);
+		e.preventDefault(); 
+	}
+
 });
 
 // Store data when page is closed
@@ -57,8 +66,15 @@ export function addItem (data = { done: false, title: "" }) {
 	done.checked = data.done;
 	done.addEventListener("change", updateDoneCount);
 
+	let deleteButton = element.querySelector(".delete");
+	deleteButton.addEventListener("click", () => {
+		element.remove(); updateCounts();
+	});
+
 	updateCounts();
 	focusTask(element);
+
+
 }
 
 /**
@@ -66,6 +82,14 @@ export function addItem (data = { done: false, title: "" }) {
  */
 export function clearCompleted () {
 	// TODO implement this (see step 4)
+	let done = document.querySelectorAll(".done");
+	console.log(done)
+	for (let task of done)
+		if (task.checked) {
+			let parentelement = task.closest("li");
+			parentelement.querySelector(".delete").click();
+			console.log(parentelement)
+		}
 }
 
 /**
