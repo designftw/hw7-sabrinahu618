@@ -1,1 +1,3 @@
-
+javascript: (() => {
+    alert('Hello, Sabrina!');
+  })();

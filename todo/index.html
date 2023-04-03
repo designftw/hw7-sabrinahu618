@@ -17,7 +17,7 @@ globalThis.app = app;
 		<h1><span id="done_count">0</span> done of <span id="total_count">1</span> total</h1>
 		<ul id="tasks_list"></ul>
 		<template id="task_template">
-			<li>
+			<li draggable="true">
 				<input type="checkbox" aria-label="Done?" class="done">
 				<input type="text" aria-label="Task" class="title">
 				<button class="delete">x</button>

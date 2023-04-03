@@ -74,7 +74,9 @@ export function addItem (data = { done: false, title: "" }) {
 	updateCounts();
 	focusTask(element);
 
-
+	element.addEventListener("dragstart", dragstart_handler);
+	element.addEventListener("dragover", dragover_handler);
+	element.addEventListener("drop", drop_handler);
 }
 
 /**
@@ -88,7 +90,6 @@ export function clearCompleted () {
 		if (task.checked) {
 			let parentelement = task.closest("li");
 			parentelement.querySelector(".delete").click();
-			console.log(parentelement)
 		}
 }
 
@@ -120,3 +121,31 @@ function updateCounts () {
 	updateDoneCount();
 	updateTotalCount();
 }
+
+
+let draggyboi = null;
+
+function dragstart_handler(ev) {
+    ev.dataTransfer.setData("text/html", ev.target);
+	ev.dataTransfer.dropEffect = "move";
+	draggyboi = ev.target;
+  }
+
+function dragover_handler(ev) {
+	ev.preventDefault();
+	ev.dataTransfer.dropEffect = "move";
+	// determine if draggy boi is before or after the current target
+	if (draggyboi.compareDocumentPosition(ev.currentTarget) & 2) {
+		// before
+		ev.currentTarget.parentNode.insertBefore(draggyboi, ev.currentTarget);
+	} 
+	else {
+		// after
+		ev.currentTarget.parentNode.insertBefore(draggyboi, ev.currentTarget.nextSibling);
+	}
+  }
+
+function drop_handler(ev) {
+	ev.preventDefault();
+  }
+	
