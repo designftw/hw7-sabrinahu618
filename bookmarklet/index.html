@@ -2,10 +2,18 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Exercise 5</title>
+	<title>Show Password</title>
 	<link rel="stylesheet" href="writeup.css">
+	<script type="module">
+		import * as app from './bookmarklet.js';
+		globalThis.app = app;
+	</script>
 </head>
 <body>
-	<!-- your html here -->
+	<div>
+		<label>Password</label>
+		<input class="password" type="password"/>
+		<button class="show-toggle">Show</button>
+	</div>
 </body>
 </html>
