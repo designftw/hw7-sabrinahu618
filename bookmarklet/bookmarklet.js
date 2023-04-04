@@ -10,7 +10,6 @@ function toggleShow() {
 }
 
 function toggleType(visible)  {
-  const passwordType = visible ? 'text' : 'password';
-  password.type = passwordType;
+  password.type = visible ? 'text' : 'password';
   showToggle.textContent = visible ? "Hide" : "Show";
 }
