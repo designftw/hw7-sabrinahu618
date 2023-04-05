@@ -1,19 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Show Password</title>
-	<link rel="stylesheet" href="writeup.css">
-	<script type="module">
-		import * as app from './bookmarklet.js';
-		globalThis.app = app;
-	</script>
+	<link rel="stylesheet" href="prism.css">
 </head>
+
 <body>
-	<div>
-		<label>Password</label>
-		<input class="password" type="password"/>
-		<button class="show-toggle">Show</button>
-	</div>
+	<h1>Bookmarklet that Unmasks Password Field</h1>
+
+	<b>Bookmarklet:</b> <a
+		href="javascript:(function()%7Bif%20(!document.body.dataset.passwordToggle%20%7C%7C%20document.body.dataset.passwordToggle%20%3D%3D%3D%20'hidden')%20%7Bdocument.querySelectorAll('input%5Btype%3Dpassword%5D').forEach(field%20%3D%3E%20%7Bfield.type%20%3D%20'text'%3Bfield.dataset.passVisible%20%3D%20'true'%3B%7D)%3Bdocument.body.dataset.passwordToggle%20%3D%20'visible'%3B%7Delse%20%7Bdocument.querySelectorAll('input%5Bdata-pass-visible%3Dtrue%5D').forEach(field%20%3D%3E%20%7Bfield.type%20%3D%20'password'%3Bfield.dataset.passVisible%20%3D%20'false'%3B%7D)%3Bdocument.body.dataset.passwordToggle%20%3D%20'hidden'%3B%7D%7D)()">Password
+		Toggle</a>
+
+	<br><br>
+
+	<b>Websites tested on and working:</b>
+	<ul>
+		<li>https://www.yesstyle.com/en/secure/sign-in.html</li>
+		<li>https://inspire.hanovercrm.com/users/sign_in</li>
+		<li>https://www.facebook.com/</li>
+		<li>https://www.instagram.com/</li>
+		<li>https://www.wellsfargo.com/</li>
+		<li>https://www.gradescope.com</li>
+	</ul>
+
+	<b>Code:</b>
+	<pre>
+	<code class="language-javascript">
+		if (!document.body.dataset.passwordToggle || document.body.dataset.passwordToggle === 'hidden') {
+			document.querySelectorAll('input[type=password]').forEach(field => {
+			  field.type = 'text';
+			  field.dataset.passVisible = 'true';
+			});
+			document.body.dataset.passwordToggle = 'visible';
+		  } 
+		  else {
+			document.querySelectorAll('input[data-pass-visible=true]').forEach(field => {
+			  field.type = 'password';
+			  field.dataset.passVisible = 'false';
+			});
+			document.body.dataset.passwordToggle = 'hidden';
+		  }
+	</code>
+</pre>
+
+	<script src="prism.js"></script>
 </body>
-</html>

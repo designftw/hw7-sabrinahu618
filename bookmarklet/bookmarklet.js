@@ -1,15 +1,16 @@
-const password = document.getElementsByClassName('password')[0];
-const showToggle = document.getElementsByClassName('show-toggle')[0];
-showToggle.addEventListener('click', toggleShow);
-
-let show = false;
-
-function toggleShow() {
-  show = !show;
-  toggleType(show)
+if (!document.body.dataset.passwordToggle || document.body.dataset.passwordToggle === 'hidden') {
+  document.querySelectorAll('input[type=password]').forEach(field => {
+    field.type = 'text';
+    field.dataset.passVisible = 'true';
+  });
+  document.body.dataset.passwordToggle = 'visible';
+} 
+else {
+  document.querySelectorAll('input[data-pass-visible=true]').forEach(field => {
+    field.type = 'password';
+    field.dataset.passVisible = 'false';
+  });
+  document.body.dataset.passwordToggle = 'hidden';
 }
 
-function toggleType(visible)  {
-  password.type = visible ? 'text' : 'password';
-  showToggle.textContent = visible ? "Hide" : "Show";
-}
+
